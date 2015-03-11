@@ -83,7 +83,10 @@ bind_cols(lapply(1:2, function(x) iris))[1:10,]
 
 
 
-#' All these functions:
+
+
+
+## All these functions:
 
 #'   - Have the dataset as the first argument
 #'   - Do not need to mention the dataset again
@@ -93,6 +96,9 @@ bind_cols(lapply(1:2, function(x) iris))[1:10,]
 #'
 #' Programming with these functions can be ugly:
 #' either you need to go step by step:
+ 
+
+
 dat1 <- select(iris, -Sepal.Length, -Sepal.Width)   
 dat2 <- mutate(dat1, Petal.Width = Petal.Width * 10,
                Petal.Length = Petal.Length * 10)
@@ -115,6 +121,8 @@ summarise_each(
 #' x %>% f(y) turns into f(x, y)
 #' 
 #' 
+
+
 iris %>% 
   select(-Sepal.Length, -Sepal.Width) %>%
   mutate(Petal.Width = Petal.Width * 10,
@@ -124,7 +132,8 @@ iris %>%
 iris$Sepal.Length %>% mean 
 
 #' You can also chain with other functions outside of dplyr:
-#' 
+
+
 iris %>% head
 iris$Sepal.Length %>% mean
 

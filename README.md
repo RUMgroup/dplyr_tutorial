@@ -225,30 +225,30 @@ But you can combine with group\_by to summarise by group:
     sample_n(iris, 10)
 
     ##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-    ## 9            4.4         2.9          1.4         0.2     setosa
-    ## 13           4.8         3.0          1.4         0.1     setosa
+    ## 16           5.7         4.4          1.5         0.4     setosa
+    ## 93           5.8         2.6          4.0         1.2 versicolor
+    ## 70           5.6         2.5          3.9         1.1 versicolor
+    ## 108          7.3         2.9          6.3         1.8  virginica
+    ## 89           5.6         3.0          4.1         1.3 versicolor
+    ## 53           6.9         3.1          4.9         1.5 versicolor
+    ## 100          5.7         2.8          4.1         1.3 versicolor
     ## 58           4.9         2.4          3.3         1.0 versicolor
-    ## 97           5.7         2.9          4.2         1.3 versicolor
-    ## 127          6.2         2.8          4.8         1.8  virginica
-    ## 31           4.8         3.1          1.6         0.2     setosa
-    ## 134          6.3         2.8          5.1         1.5  virginica
-    ## 102          5.8         2.7          5.1         1.9  virginica
-    ## 37           5.5         3.5          1.3         0.2     setosa
-    ## 141          6.7         3.1          5.6         2.4  virginica
+    ## 104          6.3         2.9          5.6         1.8  virginica
+    ## 85           5.4         3.0          4.5         1.5 versicolor
 
     sample_n(iris, nrow(iris), replace = TRUE)[1:10,] # bootstrap sample
 
-    ##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-    ## 17           5.4         3.9          1.3         0.4     setosa
-    ## 62           5.9         3.0          4.2         1.5 versicolor
-    ## 16           5.7         4.4          1.5         0.4     setosa
-    ## 22           5.1         3.7          1.5         0.4     setosa
-    ## 79           6.0         2.9          4.5         1.5 versicolor
-    ## 130          7.2         3.0          5.8         1.6  virginica
-    ## 61           5.0         2.0          3.5         1.0 versicolor
-    ## 141          6.7         3.1          5.6         2.4  virginica
-    ## 121          6.9         3.2          5.7         2.3  virginica
-    ## 115          5.8         2.8          5.1         2.4  virginica
+    ##       Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+    ## 140            6.9         3.1          5.4         2.1  virginica
+    ## 60             5.2         2.7          3.9         1.4 versicolor
+    ## 107            4.9         2.5          4.5         1.7  virginica
+    ## 1              5.1         3.5          1.4         0.2     setosa
+    ## 32             5.4         3.4          1.5         0.4     setosa
+    ## 19             5.7         3.8          1.7         0.3     setosa
+    ## 122            5.6         2.8          4.9         2.0  virginica
+    ## 107.1          4.9         2.5          4.5         1.7  virginica
+    ## 98             6.2         2.9          4.3         1.3 versicolor
+    ## 58             4.9         2.4          3.3         1.0 versicolor
 
 -   binding
 
@@ -313,14 +313,11 @@ But you can combine with group\_by to summarise by group:
     ## 9          2.9          1.4         0.2  setosa
     ## 10         3.1          1.5         0.1  setosa
 
+    ## All these functions:
 
-## All these functions: 
-
--   Have the dataset as the first argument 
--   Do not need to mention the dataset again 
--   return a dataframe 
-
-## Workflows:
+-   Have the dataset as the first argument
+-   Do not need to mention the dataset again
+-   return a dataframe Workflows:
 
 Programming with these functions can be ugly: either you need to go step
 by step:
@@ -424,7 +421,7 @@ We have data frames for:
     d1 <- d1[order(d1$gp_practice, d1$patient_id),]
     Sys.time() - t 
 
-    ## Time difference of 4.386439 secs
+    ## Time difference of 4.857486 secs
 
     head(d1)
 
@@ -457,7 +454,7 @@ We have data frames for:
 
     Sys.time() - t 
 
-    ## Time difference of 1.10311 secs
+    ## Time difference of 1.091109 secs
 
     head(d2)
 
@@ -504,18 +501,18 @@ We have data frames for:
     ## Joining by: "gp_practice"
 
     ## Unit: milliseconds
-    ##   expr       min        lq      mean    median        uq       max neval
-    ##   base 714.99766 751.31389 780.84670 760.59285 787.02370 890.30542     5
-    ##  dplyr  26.04629  26.18605  30.02725  26.22016  27.04693  44.63681     5
+    ##   expr       min        lq      mean    median       uq       max neval
+    ##   base 756.13509 781.46176 837.96387 847.34298 900.2955 904.58397     5
+    ##  dplyr  26.20959  26.22076  26.34283  26.29864  26.4381  26.54707     5
 
     microbenchmark(base = {do.call(`rbind`, (lapply(1:50, function(x) incident_cases)))}, 
                    dplyr = {bind_rows(lapply(1:50, function(x) incident_cases))}, 
                    times = 5)
 
     ## Unit: milliseconds
-    ##   expr       min        lq      mean    median       uq       max neval
-    ##   base 348.98371 353.81667 361.66878 360.78857 363.0410 381.71393     5
-    ##  dplyr  16.42986  18.13412  22.18173  23.45337  24.4673  28.42399     5
+    ##   expr       min        lq      mean   median        uq       max neval
+    ##   base 331.09590 361.13963 376.84703 379.6659 379.69936 432.63441     5
+    ##  dplyr  17.36228  17.94818  19.82951  18.9449  22.30754  22.58464     5
 
 There seems to be a greater speedup in Linux than on windows (suprise!)
 
@@ -534,7 +531,7 @@ There seems to be a greater speedup in Linux than on windows (suprise!)
     prevalence1$prevalence <- with(prevalence1, 100 * (numerator / denominator))
     Sys.time() - t 
 
-    ## Time difference of 3.867387 secs
+    ## Time difference of 3.839383 secs
 
     prevalence1
 
@@ -566,7 +563,7 @@ There seems to be a greater speedup in Linux than on windows (suprise!)
 
     Sys.time() - t 
 
-    ## Time difference of 0.03600383 secs
+    ## Time difference of 0.03700304 secs
 
     prevalence2
 
