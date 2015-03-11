@@ -58,12 +58,12 @@ arrange(iris, Sepal.Length)[1:10,]
 arrange(iris, Species, Sepal.Width)[1:10,]
 arrange(iris, -Sepal.Length)[1:10,]
 
-#'  - Summarising
+#' Summarising
 
-#' Not too useful by itself:
+#' Is not too useful by itself:
 summarise(iris, total = n())
 
-#' combine with group_by to summarise by group:
+#' But you can combine with group_by to summarise by group:
 a <- group_by(iris, Species)
 summarise(a, total = n(), 
           petal_length = sum(Petal.Length))
@@ -82,15 +82,17 @@ bind_rows(lapply(1:10, function(x) iris)) # do.call(rbind, ...)
 bind_cols(lapply(1:2, function(x) iris))[1:10,]
 
 
-#' All these functions
-#' - Have the dataset as the first argument
-#' - Do not need to mention the dataset again
-#' - return a dataframe
+
+#' All these functions:
+
+#'   - Have the dataset as the first argument
+#'   - Do not need to mention the dataset again
+#'   - return a dataframe
 
 #' Workflows:
 #'
-#' Can be ugly:
-#' either step by step:
+#' Programming with these functions can be ugly:
+#' either you need to go step by step:
 dat1 <- select(iris, -Sepal.Length, -Sepal.Width)   
 dat2 <- mutate(dat1, Petal.Width = Petal.Width * 10,
                Petal.Length = Petal.Length * 10)
@@ -134,9 +136,10 @@ iris$Sepal.Length %>% mean
 #' Prevalence is ~ the number of patients with the condition / the total population 
 #' 
 #' We have data frames for: 
-#'  -  all cases in the practices without the condition (denoms)
-#'  -  all cases with the condtion and their diagnosis dates (incident_cases)
-#'  -  the different GP practices and the times they are collecting data from and until (practices)
+#'
+#'   - all cases in the practices without the condition (denoms)
+#'   - all cases with the condtion and their diagnosis dates (incident_cases)
+#'   - the different GP practices and the times they are collecting data from and until (practices)
 
 rm(list=ls())
 load("example2.rda")

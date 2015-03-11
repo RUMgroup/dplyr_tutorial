@@ -1,4 +1,4 @@
-# The `dplyr` data manipulation package
+    # This is a short introduction to the `dplyr` data manipulation package
 
 
     library(dplyr)
@@ -198,16 +198,14 @@ It allows for:
     ## 9           7.2         3.6          6.1         2.5 virginica
     ## 10          7.2         3.2          6.0         1.8 virginica
 
--   Summarising Not too useful by itself:
-
-<!-- -->
+Summarising Is not too useful by itself:
 
     summarise(iris, total = n())
 
     ##   total
     ## 1   150
 
-combine with group\_by to summarise by group:
+But you can combine with group\_by to summarise by group:
 
     a <- group_by(iris, Species)
     summarise(a, total = n(), 
@@ -227,30 +225,30 @@ combine with group\_by to summarise by group:
     sample_n(iris, 10)
 
     ##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-    ## 85           5.4         3.0          4.5         1.5 versicolor
-    ## 129          6.4         2.8          5.6         2.1  virginica
-    ## 82           5.5         2.4          3.7         1.0 versicolor
-    ## 19           5.7         3.8          1.7         0.3     setosa
-    ## 65           5.6         2.9          3.6         1.3 versicolor
-    ## 78           6.7         3.0          5.0         1.7 versicolor
-    ## 68           5.8         2.7          4.1         1.0 versicolor
+    ## 9            4.4         2.9          1.4         0.2     setosa
+    ## 13           4.8         3.0          1.4         0.1     setosa
+    ## 58           4.9         2.4          3.3         1.0 versicolor
+    ## 97           5.7         2.9          4.2         1.3 versicolor
+    ## 127          6.2         2.8          4.8         1.8  virginica
+    ## 31           4.8         3.1          1.6         0.2     setosa
+    ## 134          6.3         2.8          5.1         1.5  virginica
     ## 102          5.8         2.7          5.1         1.9  virginica
-    ## 125          6.7         3.3          5.7         2.1  virginica
-    ## 126          7.2         3.2          6.0         1.8  virginica
+    ## 37           5.5         3.5          1.3         0.2     setosa
+    ## 141          6.7         3.1          5.6         2.4  virginica
 
     sample_n(iris, nrow(iris), replace = TRUE)[1:10,] # bootstrap sample
 
-    ##       Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-    ## 45             5.1         3.8          1.9         0.4     setosa
-    ## 145            6.7         3.3          5.7         2.5  virginica
-    ## 144            6.8         3.2          5.9         2.3  virginica
-    ## 145.1          6.7         3.3          5.7         2.5  virginica
-    ## 136            7.7         3.0          6.1         2.3  virginica
-    ## 23             4.6         3.6          1.0         0.2     setosa
-    ## 135            6.1         2.6          5.6         1.4  virginica
-    ## 137            6.3         3.4          5.6         2.4  virginica
-    ## 24             5.1         3.3          1.7         0.5     setosa
-    ## 84             6.0         2.7          5.1         1.6 versicolor
+    ##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+    ## 17           5.4         3.9          1.3         0.4     setosa
+    ## 62           5.9         3.0          4.2         1.5 versicolor
+    ## 16           5.7         4.4          1.5         0.4     setosa
+    ## 22           5.1         3.7          1.5         0.4     setosa
+    ## 79           6.0         2.9          4.5         1.5 versicolor
+    ## 130          7.2         3.0          5.8         1.6  virginica
+    ## 61           5.0         2.0          3.5         1.0 versicolor
+    ## 141          6.7         3.1          5.6         2.4  virginica
+    ## 121          6.9         3.2          5.7         2.3  virginica
+    ## 115          5.8         2.8          5.1         2.4  virginica
 
 -   binding
 
@@ -315,10 +313,17 @@ combine with group\_by to summarise by group:
     ## 9          2.9          1.4         0.2  setosa
     ## 10         3.1          1.5         0.1  setosa
 
-All these functions - Have the dataset as the first argument - Do not
-need to mention the dataset again - return a dataframe Workflows:
 
-Can be ugly: either step by step:
+## All these functions: 
+
+-   Have the dataset as the first argument 
+-   Do not need to mention the dataset again 
+-   return a dataframe 
+
+## Workflows:
+
+Programming with these functions can be ugly: either you need to go step
+by step:
 
     dat1 <- select(iris, -Sepal.Length, -Sepal.Width)   
     dat2 <- mutate(dat1, Petal.Width = Petal.Width * 10,
@@ -390,10 +395,15 @@ We Want to find the prevalence of a chronic condition in two UK general
 practices over a 10 year period. Prevalence is ~ the number of patients
 with the condition / the total population
 
-We have data frames for: - all cases in the practices without the
-condition (denoms) - all cases with the condtion and their diagnosis
-dates (incident\_cases) - the different GP practices and the times they
-are collecting data from and until (practices)
+We have data frames for:
+
+-   all cases in the practices without the condition (denoms)
+-   all cases with the condtion and their diagnosis dates
+    (incident\_cases)
+-   the different GP practices and the times they are collecting data
+    from and until (practices)
+
+<!-- -->
 
     rm(list=ls())
     load("example2.rda")
@@ -414,7 +424,7 @@ are collecting data from and until (practices)
     d1 <- d1[order(d1$gp_practice, d1$patient_id),]
     Sys.time() - t 
 
-    ## Time difference of 4.463446 secs
+    ## Time difference of 4.386439 secs
 
     head(d1)
 
@@ -447,7 +457,7 @@ are collecting data from and until (practices)
 
     Sys.time() - t 
 
-    ## Time difference of 1.037104 secs
+    ## Time difference of 1.10311 secs
 
     head(d2)
 
@@ -494,18 +504,18 @@ are collecting data from and until (practices)
     ## Joining by: "gp_practice"
 
     ## Unit: milliseconds
-    ##   expr      min        lq      mean    median        uq      max neval
-    ##   base 746.9898 768.24422 806.55250 797.06001 806.49201 913.9764     5
-    ##  dplyr  26.5691  27.96849  69.54838  73.65334  76.84453 142.7064     5
+    ##   expr       min        lq      mean    median        uq       max neval
+    ##   base 714.99766 751.31389 780.84670 760.59285 787.02370 890.30542     5
+    ##  dplyr  26.04629  26.18605  30.02725  26.22016  27.04693  44.63681     5
 
     microbenchmark(base = {do.call(`rbind`, (lapply(1:50, function(x) incident_cases)))}, 
                    dplyr = {bind_rows(lapply(1:50, function(x) incident_cases))}, 
                    times = 5)
 
     ## Unit: milliseconds
-    ##   expr       min        lq      mean    median        uq      max neval
-    ##   base 344.45712 351.24549 381.61456 394.24385 405.21107 412.9153     5
-    ##  dplyr  16.28437  16.58652  17.52009  16.59799  16.69338  21.4382     5
+    ##   expr       min        lq      mean    median       uq       max neval
+    ##   base 348.98371 353.81667 361.66878 360.78857 363.0410 381.71393     5
+    ##  dplyr  16.42986  18.13412  22.18173  23.45337  24.4673  28.42399     5
 
 There seems to be a greater speedup in Linux than on windows (suprise!)
 
@@ -524,7 +534,7 @@ There seems to be a greater speedup in Linux than on windows (suprise!)
     prevalence1$prevalence <- with(prevalence1, 100 * (numerator / denominator))
     Sys.time() - t 
 
-    ## Time difference of 4.0014 secs
+    ## Time difference of 3.867387 secs
 
     prevalence1
 
